@@ -1,1 +1,44 @@
-guava中常用的包和类
+#guava中常用的包和类
+
+##base包
+###类：字符串相关（Joiner、Splitter、Strings等）、Preconditions、Stopwatch等
+###接口：Function、Predicate、Supplier等，集合包中会使用这些接口
+
+##collect包
+###Maps/Sets/Lists/Collections2/Multimaps/Tables:这种可以归结为算法类，实现特定的功能
+###FluentIterable类
+###multiMap,multiSet,bimap,rangeSet,rangeMap,table等的具体实现
+###Immutable*:不可变集合
+
+##io包
+Files和LineProcessor等，这个包中的很多类都是beta版本，后续的版本有可能会消失、更改等
+
+##cache包
+会使用cache
+
+##eventbus包
+会使用这种发布、订阅的方式
+
+###concurrent包
+如果Java的并发学习的比较好，可以试着看看，学习一下，
+ ExecutorService executorService = Executors.newFixedThreadPool(2);
+        ListeningExecutorService listeningExecutorService = MoreExecutors.listeningDecorator(executorService);
+
+        ListenableFuture<String> submit = listeningExecutorService.submit(new Callable<String>() {
+            @Override
+            public String call() throws Exception {
+                return "called";
+            }
+        });
+
+        Futures.addCallback(submit, new FutureCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                System.out.println("on success:" + result);
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println(Throwables.getStackTraceAsString(t));
+            }
+        });
